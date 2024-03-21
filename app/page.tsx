@@ -35,7 +35,7 @@ export default function Home() {
 
         fetch('/api/test', options)
           .then(res => console.log(res.json())) // 결과를 반환
-          .then(result => console.log(result) )
+          .then(result => console.log(result))
           .catch(error => console.error('Error:', error)); // 에러 처리 추가
       }}>
 
@@ -47,6 +47,16 @@ export default function Home() {
         </p>
         <input type="submit" value='submit' />
       </form>
+      <p>
+        <Link href='/imagewhole'>
+          <input type="button" value='go to imagewhole' />
+        </Link>
+      </p>
+      <p>
+        <Link href='/upload'>
+          <input type="button" value='go to upload' />
+        </Link>
+      </p>
     </>
   );
 }

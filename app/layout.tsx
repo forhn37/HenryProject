@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,7 +15,9 @@ export default function RootLayout({
   return (
     <html>
       <body>
-        <h1>Hello Next.js</h1>
+        <Link href='/'>
+          <h1>Hello Next.js</h1>
+        </Link>
         {children}
       </body>
     </html>
