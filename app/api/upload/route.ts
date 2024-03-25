@@ -1,41 +1,50 @@
+import { NextRequest, NextResponse } from "next/server";
 import supabase from "@/app/utils/supabaseClient";
-import { NextRequest } from "next/server";
 
-// export const config = {
-//   api: {
-//     bodyParser: false,
-//   },
-// };
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
 export async function POST(request: NextRequest) {
   try {
-    const formData = request.body
-    console.log(formData)
-    formData.
+    const formData = await request.formData();
+    const file = formData.get('file');
+    
+    if (!file || !(file instanceof File)) {
+      throw new Error("No file uploaded.");
+    }
   
-    // const uploadedFile = formData.get("fileData");
-
-
-    const UploadedFilename = formData.get("file").name
-    console.log(UploadedFilename)// 파일 데이터를 가져옴
-    // const uploadedFileName = uploadedFile.name; // 파일의 이름을 가져옴
-    // console.log("Uploaded File:", uploadedFile);
-
-    const response = new Response();
-
+    const UploadedFilename = file.name;
+    
     // Supabase의 'images' 버킷에 파일 업로드
-    const { data, error } = await supabase.storage
-      .from("images")
-      .upload(UploadedFilename, uploadedFile);
+    const { data, error } = await supabase.storage.from("images").upload(UploadedFilename, file);
 
     if (error) {
       console.error("Error uploading file:", error.message);
-      return response.status(500).json({ error: "Failed to upload file" });
+      return new NextResponse(JSON.stringify({ error: "Failed to upload file" }), {
+        status: 500,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
     }
 
     console.log("File uploaded successfully:", data);
-    return response.status(200).json({ message: "File uploaded successfully" });
+    return new NextResponse(JSON.stringify({ message: "File uploaded successfully", data }), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   } catch (error) {
     console.error("Error uploading file:", error.message);
-    return response.status(500).json({ error: "Failed to upload file" });
+    return new NextResponse(JSON.stringify({ error: "Failed to upload file" }), {
+      status: 500,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   }
 }
