@@ -1,4 +1,5 @@
 'use client'
+import { NextResponse } from "next/server";
 import { useState } from "react"; // 이미지 파일을 선택했을때 담을 수 있는 상태관리를 위해 사용
 import React from "react"; // React 타입스크립트를 적용하기 위해 불러와야해!
 
@@ -46,7 +47,6 @@ export default function Upload() { // 컴포넌트의 명은 직관적으로 설
         // new FormData()를 통해 FormData 객체를 만들고 초기화시키자!! 깔끔하게!
         formData.append("file", selectedFile);
         // 이제 데이터 넣어야지? 앞에는 키! 뒤에는 값!!!
-
         const response = await fetch("/api/upload", {
           method: "POST",
           body: formData,
