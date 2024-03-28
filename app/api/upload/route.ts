@@ -5,7 +5,7 @@ export async function POST(request:NextRequest) {
   // route handler방식은 함수명이 http 메서드가 됩니다. GET, POST 이런식이요!! 그리고 request:NextRequest이 과정이 중요한데 request의 변수의 타입을 NextRequest의 클래스를 타입으로 설정했을때 컴파일 단계에서 request가 NextRequest의 인스턴스를 저장할 수 있다고 명시하며 런타임단계에서는 next.js 프레임워크 자체에서 request = new NextRequst()를 통해 할당하지 않아도 넥스트프레임워크 자체에서 요청처리함수의 매개변수에 자동으로 할당하게 되는거야! 꼭 알아두자!
   try {
     const formData = await request.formData();
-    // 이제 try/catch는 자동으로 해야지? 그리고 이것도 중요한데 request.formData()를 통해 요청을 formData로 변환하는것이 중요해! 왜냐하면 데이터전송이 일어날때 데이터는 raw Data(원시데이터)이기 떄문에 이것을 전환하는 과정이 필요해! 즉, 원하는 형식대로 바꾸는 작용 이게 formData야!! 그리고 원래대로라면 formData인 부분은 request.body이기 때문에 body를 직접 parsing하는 과정이 필요하다고 생각하는게 당연한거야! 하지만 !! next.js는 단순하게 request.formData()를 실행함으로써 request.body를 찾아서 formData()로 해석하는 과정도 줄여주는 거지!! 정말 친절하지만 너무생략되어있어서 헷갈릴만해!!!
+    // 이제 try/catch는 자동으로 해야지? 그리고 이것도 중요한데 request.formData()를 통해 요청을 formData로 변환하는것이 중요해! 왜냐하면 데이터전송이 일어날때 데이터는 raw Data(원시데이터)이기 때문에 이것을 전환하는 과정이 필요해! 즉, 원하는 형식대로 바꾸는 작용 이게 formData야!! 그리고 원래대로라면 formData인 부분은 request.body이기 때문에 body를 직접 parsing하는 과정이 필요하다고 생각하는게 당연한거야! 하지만 !! next.js는 단순하게 request.formData()를 실행함으로써 request.body를 찾아서 formData()로 해석하는 과정도 줄여주는 거지!! 정말 친절하지만 너무생략되어있어서 헷갈릴만해!!!
     const file = formData.get('file');
     // 이제 formData의 메서드를 사용해서 file이라는 이름 통해서 값을 끄집어내야하는 것이 필요해! 그것이 활용할것이고 그것이 File객체야 그것을 storage에 집어넣어야해!!!
     
@@ -32,7 +32,7 @@ export async function POST(request:NextRequest) {
         },
       });
     }
-
+    // 이제 정상적인 응답에 대한 부분을 작성하는거고 위와 형식은 동일해 매개변수 첫번째는 body, 두번째 부분은 초기화된 헤더 설정이라고 보면 됩니다!!!
     return new NextResponse(JSON.stringify({ message: "File uploaded successfully", data }), {
       status: 200,
       headers: {
@@ -40,7 +40,6 @@ export async function POST(request:NextRequest) {
       },
     });
   } catch (error) {
-    console.error("Error uploading file:", error.message);
     return new NextResponse(JSON.stringify({ error: "Failed to upload file" }), {
       status: 500,
       headers: { 
