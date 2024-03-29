@@ -48,8 +48,8 @@ export default function Home() {
         <input type="submit" value='submit' />
       </form>
       <p>
-        <Link href='/imagewhole'>
-          <input type="button" value='go to imagewhole' />
+        <Link href='/imageread'>
+          <input type="button" value='go to imageread' />
         </Link>
       </p>
       <p>

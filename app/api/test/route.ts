@@ -1,12 +1,12 @@
 import supabase from "@/app/utils/supabaseClient";
 
 export async function POST(request:Request) {
-  const data = await request.json()
+  const packagedata = await request.json()
 
-  const { data: insertData, error } = await supabase
+  const { data, error } = await supabase
   .from('table') // 'posts'는 여러분의 테이블 이름입니다.
   .insert([
-    { title: data.title, body: data.body }
+    { title:packagedata.title, body: packagedata.body }
   ]);
 
 // 에러 처리
