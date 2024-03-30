@@ -13,7 +13,7 @@ export default function DownloadButton(props) {
     const link = document.createElement('a');
     const url = props.url
     link.setAttribute('href', `${url}?download=${filename}`);
-    link.setAttribute('download', 'filename.png');
+    link.setAttribute('download', filename);
     document.body.appendChild(link); // 링크를 body에 추가
     link.click(); // 클릭 이벤트 발생
     document.body.removeChild(link); // 링크를 body에서 제거

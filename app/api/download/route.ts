@@ -8,7 +8,7 @@ export async function GET() {
     // Content-Disposition 헤더를 추가하여 파일 다운로드를 처리
     const headers = {
       "Content-Type": "application/json",
-      "Content-Disposition": "attachment; filename=\"imageurls.json\""
+      "Content-Disposition": "attachment;"
     };
 
     return new Response(JSON.stringify(imageurllist), {
