@@ -1,10 +1,4 @@
-'use client'
-
-import { useRouter } from "next/navigation";
-
-
 export default function DownloadButton(props) {
-  const router = useRouter()
 
   const downloadProcess = () => {
     //supabase내의 downloading 방법에 의하면 download 쿼리스트링을 붙이기만해도 가능하기에 router방식으로 구현해도 가능할듯하다. !

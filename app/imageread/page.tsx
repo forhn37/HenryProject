@@ -1,8 +1,7 @@
 'use client'
 import Image from 'next/image'
 import DownloadButton from '../comp/downloadbutton';
-import { Suspense, useEffect, useState } from 'react';
-import Loading from './loading';
+import { useEffect, useState } from 'react';
 
 export default function Imageread() {
   const [imageUrl, setImageUrl] = useState([])
@@ -18,12 +17,6 @@ export default function Imageread() {
 
   }, [])
 
-  // const response = await fetch('http://localhost:3000/api/download')
-  // const imageUrl = await response.json()
-  // console.log(imageUrl)
-
-
-  // 서버에서 이미지의 URL을 가져옵니다.
 
   return (
     <>
