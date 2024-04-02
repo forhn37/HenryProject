@@ -1,12 +1,13 @@
 'use client'
 import { useState } from 'react';
 import Link from 'next/link';
+import React from 'react';
 
 export default function Home() {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e :React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = { title, body };
