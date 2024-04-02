@@ -1,61 +1,70 @@
 'use client'
-import Link from "next/link";
-export default function Home() {
+import { useState } from 'react';
+import Link from 'next/link';
 
-  interface Content {
-    title: string;
-    body: string;
-  }
+export default function Home() {
+  const [title, setTitle] = useState('');
+  const [body, setBody] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = { title, body };
+
+    fetch('/api/test', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Success:', data);
+      // 데이터를 성공적으로 보낸 후에 상태를 초기화할 수 있습니다.
+      setTitle('');
+      setBody('');
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  };
 
   return (
     <>
-      {/* <style jsx>{`
-        input, textarea {
-          border: 1px solid #ccc; // 입력 상자에 테두리 추가
-          padding: 10px;
-        }
-        p {
-          margin-bottom: 20px; // p 태그 사이의 간격을 조정
-        }
-      `}</style> */}
-
-      <form onSubmit={(e) => {
-        e.preventDefault();
-
-        const form = e.target as HTMLFormElement;
-        const title = form.title.value; // 더 명확한 접근 방법
-        const body = form.body.value;
-
-        const options = {
-          method: 'POST',
-          headers: {
-            'Content-type': 'application/json'
-          },
-          body: JSON.stringify({ title, body })
-        }
-
-        fetch('/api/test', options)
-          .then(res => res.json()) // 결과를 반환
-          .then(result => console.log(result))
-          .catch(error => console.error('Error:', error)); // 에러 처리 추가
-      }}>
-
+      <form onSubmit={handleSubmit}>
         <p>
-          <input type="text" name='title' placeholder="text" autocomplete="off" />
+          <input
+            type="text"
+            name="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="text"
+          />
         </p>
         <p>
-          <textarea name='body' placeholder="body" ></textarea>
+          <textarea
+            name="body"
+            value={body}
+            onChange={(e) => setBody(e.target.value)}
+            placeholder="body"
+          ></textarea>
         </p>
-        <input type="submit" value='submit'/>
+        <input type="submit" value="submit" />
       </form>
       <p>
-        <Link href='/imageread'>
-          <input type="button" value='go to imageread' />
+        <Link href="/imageread">
+          <input type="button" value="go to imageread" />
         </Link>
       </p>
       <p>
-        <Link href='/upload'>
-          <input type="button" value='go to upload' />
+        <Link href="/upload">
+          <input type="button" value="go to upload" />
         </Link>
       </p>
     </>
