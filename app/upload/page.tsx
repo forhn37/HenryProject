@@ -1,10 +1,12 @@
 'use client'
+import { useRouter } from "next/navigation";
 import { useState } from "react"; // 이미지 파일을 선택했을때 담을 수 있는 상태관리를 위해 사용
 import React from "react"; // React 타입스크립트를 적용하기 위해 불러와야해!
 
 export default function Upload() { // 컴포넌트의 명은 직관적으로 설정(업로드하는 컴포넌트입니당!)
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null); // 상태관리 및 타입스크립트 제네릭방식으로 useState값을 File혹은 null일지 설정
+  const router = useRouter();
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     try {
       // 타입스크립트가 좀 지랄맞다. 내가봤을때 외워야할듯, React의 타입을 불러와서 내가 타입을 안정해도 되는 좋은 기능이야 암기하자!!
@@ -59,7 +61,9 @@ export default function Upload() { // 컴포넌트의 명은 직관적으로 설
           // 아 글구 await를 통해서 다 보낼때까지 기다료야지!! 응답이 올때까지 기다료야지!!
           if (response.ok) {
             // 자 이제 확인하자 response.ok이면 정상이야 알아본 바로는 200~299까지의 응답만 true란다.!!
+
             console.log("File uploaded successfully");
+            router.push("/imageread")
           } else {
             console.error("Failed to upload file");
           }
