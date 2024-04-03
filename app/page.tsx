@@ -69,12 +69,6 @@ export default function Home() {
           <input type="button" value="go to upload" />
         </Link>
       </p>
-      <p className={clsx('font-serif font-semibold', {
-        'text-red-500': title === 'hihi',
-        'text-blue-600' : title === 'hello',
-      })}>
-        hihihi
-      </p>
     </>
   );
 }
