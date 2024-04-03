@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import React from 'react';
+import clsx from 'clsx';
 
 export default function Home() {
   const [title, setTitle] = useState('');
@@ -60,13 +61,19 @@ export default function Home() {
       </form>
       <p>
         <Link href="/imageread">
-          <input type="button" value="go to imageread" />
+          <input type="button" value="go to imageread" className={clsx('weight')} />
         </Link>
       </p>
       <p>
         <Link href="/upload">
           <input type="button" value="go to upload" />
         </Link>
+      </p>
+      <p className={clsx('font-serif font-semibold', {
+        'text-red-500': title === 'hihi',
+        'text-blue-600' : title === 'hello',
+      })}>
+        hihihi
       </p>
     </>
   );
