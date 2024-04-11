@@ -24,3 +24,4 @@
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "supabase/supabase.js", "testjdoc.js"],
   "exclude": ["node_modules"]
 }
+    

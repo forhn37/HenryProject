@@ -29,7 +29,7 @@ export default function Imageread() {
             </div>
           ))
         ) : (
-          '로딩중입니다.'
+          '로딩중입니다. 맞습니다!!!'
         )}
       </div>
     </>
